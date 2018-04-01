@@ -5,6 +5,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import PurifyCSSPlugin from 'purifycss-webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin';
 
 const inProduction = process.argv[process.argv.length - 1]
   .match(/[a-z]+$/g)[0] === 'production';
@@ -49,6 +50,9 @@ const plugins = [
   new CleanWebpackPlugin('build'),
   new HtmlWebpackPlugin({
     template: path.join(__dirname, 'source/index.html'),
+  }),
+  new ScriptExtHtmlWebpackPlugin({
+    defaultAttribute: 'async',
   }),
   new PurifyCSSPlugin({
     paths: glob.sync(path.join(__dirname, 'source/index.html')),
