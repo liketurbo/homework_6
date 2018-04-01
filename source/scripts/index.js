@@ -1,6 +1,5 @@
 import action from './actions/main-actions';
 import store from './store/main-store';
-
 import '../styles/index.css';
 
 const input = document.querySelector('.view-stub__input');

@@ -1,7 +1,7 @@
 import path from 'path';
 import glob from 'glob';
 
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import PurifyCSSPlugin from 'purifycss-webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -32,11 +32,11 @@ const rules = [
   },
   {
     test: /\.css$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      'css-loader',
-    ],
+    use: ExtractTextPlugin.extract({
+      use: ['css-loader', 'postcss-loader'],
+    }),
   },
+
   {
     test: /\.js$/,
     use: ['babel-loader'],
@@ -45,15 +45,13 @@ const rules = [
 ];
 
 const plugins = [
-  new MiniCssExtractPlugin({
-    filename: '[name].[contenthash].css',
-  }),
+  new ExtractTextPlugin('[name].[contenthash].css'),
   new CleanWebpackPlugin('build'),
   new HtmlWebpackPlugin({
     template: path.join(__dirname, 'source/index.html'),
   }),
   new PurifyCSSPlugin({
-    paths: glob.sync(path.join(__dirname, 'src/index.html')),
+    paths: glob.sync(path.join(__dirname, 'source/index.html')),
     minimize: inProduction,
   }),
 ];
