@@ -1,2 +1,2 @@
 ### homework_6
-[Demo](https://liketurbo.github.io/)
+[Demo](https://liketurbo.github.io/homework_6)
